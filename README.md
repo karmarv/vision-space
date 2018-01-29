@@ -15,7 +15,9 @@ In case you use Cmder console
 1. H1PanStitch
 - Image stitching using traditional SURF/SIFT techniques.
 - Run as:  
-> panstitch.py -p <ipath> -i <imgx> -l <loratio>
-> python panstitch.py -p "assets/GrandCanyon1" -i "(PIC_00[0-9][0-9].JPG)"
+```
+ panstitch.py -p <ipath> -i <imgx> -l <loratio>
+ python panstitch.py -p "assets/GrandCanyon1" -i "(PIC_00[0-9][0-9].JPG)"
+```
 
 2. ---
