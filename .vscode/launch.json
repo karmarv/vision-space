@@ -1,0 +1,14 @@
+{
+    "name": "Python",
+    "type": "python",
+    "request": "launch",
+    "stopOnEntry": true,
+    "console": "none",
+    "program": "${file}",
+    "cwd": "${workspaceFolder}",
+    "debugOptions": [
+        "WaitOnAbnormalExit",
+        "WaitOnNormalExit",
+        "RedirectOutput"
+    ]
+}
