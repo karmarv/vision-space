@@ -13,11 +13,13 @@ In case you use Cmder console
 ----------------------------------------------------
 
 1. H1PanStitch
-- Image stitching using traditional SURF/SIFT techniques.
+- Image stitching using SIFT and RANSAC technique in OpenCV.
 - Run as:  
 ```
     $ panstitch.py -p <ipath> -i <imgx> -l <loratio>
     $ python panstitch.py -p "assets/GrandCanyon1" -i "(PIC_00[0-9][0-9].JPG)"
 ```
+- This stitches the images pairwise at each stage
+- Dump the results in assets/output folder
 
 2. H2

@@ -18,9 +18,14 @@ import cv2
     Global Variables
 '''
 MIN_MATCH_COUNT = 3
-LOWE_RATIO_TEST_FACTOR = 0.7
+LOWE_RATIO_TEST_FACTOR = 0.6
 np.set_printoptions(precision=3,suppress=True)
 execution_stage_index = 1
+
+# Homographies
+Hlist = []
+Hid = 0
+
 
 ''' Read argument list '''
 def readParams(argv):
@@ -37,7 +42,7 @@ def readParams(argv):
     global imgpath_in
     global imgregx_in
     imgpath_in = 'assets/GrandCanyon1'
-    imgregx_in = '(PIC_00[0-9][0-9].jpg)'
+    imgregx_in = '*'
     for opt, arg in opts:
         if opt == '-h':
             print('panstitch.py -p <ipath> -i <imgx> -l <loratio>')
@@ -72,10 +77,14 @@ def computeKeypoints(image_filepath):
     img = cv2.imread(image_filepath)
     # Working with a grayscale image
     gray= cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
-    # Create SIFT object
-    sift = cv2.xfeatures2d.SIFT_create()
-    # Get the keypoints and descriptors with SIFT
-    kp, des = sift.detectAndCompute(gray,None)
+    # Create SIFT object # Not available without opencv-contib
+    # sift = cv2.xfeatures2d.SIFT_create()
+    # kaze = cv2.KAZE_create()
+    # akaze = cv2.AKAZE_create()
+    brisk = cv2.BRISK_create()
+
+    # Get the keypoints and descriptors
+    kp, des = brisk.detectAndCompute(gray,None)
     return img, kp, des
 
 
@@ -88,6 +97,9 @@ def computeMatches(des1, des2):
     FLANN_INDEX_KDTREE = 2
     index_params = dict(algorithm = FLANN_INDEX_KDTREE, trees = 5)
     search_params = dict(checks = 50)
+    # Convert flann based matcher
+    des1 = np.float32(des1)
+    des2 = np.float32(des2)
     # KNN matcher using parameters
     flann = cv2.FlannBasedMatcher(index_params, search_params)
     matches = flann.knnMatch(des1,des2,k=2)
@@ -97,7 +109,7 @@ def computeMatches(des1, des2):
         if m.distance < int(LOWE_RATIO_TEST_FACTOR * float(n.distance)):
             good.append(m) # Move all the good points in source image
             #print(m,n)
-    #print("Length of good points in Image-1 using ratio test: ",len(good))
+    print("Length of good points in Image-1 using ratio test: ",len(good))
     return good
 
 
@@ -162,27 +174,52 @@ def transformWarpImages(img1, img2, H):
 ''' Get Homography matrix between two images 
     as a mask with inliers 
     project threshold for RANSAC is 5 
+    Solve errors related to matching using RANSAC algorithm
 '''
-def computeHomographyMatrix(kp1, kp2, good):
+def computeHomographyMatrixOcv(kp1, kp2, good):
     dst_pts = np.float32([ kp1[m.queryIdx].pt for m in good ]).reshape(-1,1,2)
     src_pts = np.float32([ kp2[m.trainIdx].pt for m in good ]).reshape(-1,1,2)
     # print(src_pts), #print(dst_pts)
     # Get transform between two images as a mask with inliers project threshold for RANSAC is 5
     return cv2.findHomography(src_pts, dst_pts, cv2.RANSAC, 5.0)
-    
+
+''' Compute Homography using the DLT approach
+    Approach is using DLT on the good points 
 '''
-    ------------------------------------- C -----------------------------------
+def computeHomographyMatrixDlt(kp1, kp2, good):
+    dst_pts = np.float32([ kp1[m.queryIdx].pt for m in good ]).reshape(-1,1,2)
+    src_pts = np.float32([ kp2[m.trainIdx].pt for m in good ]).reshape(-1,1,2)
+    #print(src_pts)
+    #print(dst_pts)
+    # Get homography transform between two images
+    A = []
+    for i in range(0, len(src_pts)):
+        x, y = dst_pts[i][0][0], dst_pts[i][0][1]
+        u, v = src_pts[i][0][0], src_pts[i][0][1]
+        A.append([x, y, 1, 0, 0, 0, -u*x, -u*y, -u])
+        A.append([0, 0, 0, x, y, 1, -v*x, -v*y, -v])
+    A = np.asarray(A)
+    U, S, Vh = np.linalg.svd(A)
+    L = Vh[-1,:] / Vh[-1,-1]
+    H = L.reshape(3, 3)
+    return H
+
+'''
+    --------------------------------------------------------
     Used to find homography matrix H using Normalized RANSAC
     between two images with the same object.
-    Solve errors related to matching using RANSAC algorithm
 '''
-def computeHomographyNormRansac(im_src, kp1, des1, im_dst, kp2, des2, good):
+def computeTransformImagePair(im_src, kp1, des1, im_dst, kp2, des2, good):
     # If enough matches (>4) are found
     if len(good)>MIN_MATCH_COUNT:
         # Get transform between two images as a mask with inliers project threshold for RANSAC is 5
-        M, mask = computeHomographyMatrix(kp1, kp2, good)
+        M, mask = computeHomographyMatrixOcv(kp1, kp2, good)
+        Hlist.insert(Hid,M)
+        if Hid > 0 :
+            M.dot(Hlist[Hid-1])
+        #H = computeHomographyMatrixDlt(kp1, kp2, good)
         #print("Normalized RANSAC, Homography H: \n")
-        #print (M) # 3x3 transformation matrix
+        #print (H) # 3x3 transformation matrix
         im_lined = drawMatches(im_src, kp1, im_dst, kp2, good, M)
         # Transform images based on the H matrix
         im_tfm = transformWarpImages(im_src, im_dst, M)
@@ -201,7 +238,7 @@ def imageRegistration(imgFileA, imgFileB):
     img2, kp2, des2 = computeKeypoints(imgFileB)
     #print("Compute the distance and obtain good points")
     good = computeMatches(des1,des2)
-    return computeHomographyNormRansac(im_src, kp1, des1, img2, kp2, des2, good)
+    return computeTransformImagePair(im_src, kp1, des1, img2, kp2, des2, good)
 
 
 '''
@@ -218,8 +255,13 @@ if __name__ == '__main__':
     count_images = len(imgFiles)
     print(imgFiles)
 
-    if count_images % 2 == 0:
-        iterations = int(np.log2(count_images))+1
+    if count_images <= 1:
+        print("No images found")
+        exit(0)
+    elif count_images == 2:
+        iterations = 1
+    elif count_images % 2 == 0:
+        iterations = int(np.log2(count_images)) + 1
     else: 
         iterations = int(np.log2(count_images+1)) + 1
 
@@ -234,7 +276,7 @@ if __name__ == '__main__':
                 run_count = count_images
             else: 
                 if run_count % 2 == 0:
-                    run_count = run_count/2
+                    run_count = int(run_count/2)
                 else: 
                     run_count = int((run_count+1)/2)
             print("Run count: ", run_count)
@@ -245,7 +287,7 @@ if __name__ == '__main__':
                 imgOutpt =  getOutputFilePath(imgpath_in,outStitchId) 
                 if ex == 0: # First Pass
                     if i >= (run_count - 1): 
-                        #print("Drop Last call in first pass")
+                        print("Drop Last call in first pass")
                         imgFileA = imgpath_in+os.sep+imgFiles[i-1]
                         imgFileB = imgpath_in+os.sep+imgFiles[i]
                     else:
@@ -268,11 +310,15 @@ if __name__ == '__main__':
                 print("Operate: ", os.path.basename(imgFileA)," ~ ", os.path.basename(imgFileB))
                 print("------------- Stitch ",outStitchId,"-----------------")
                 warped_img = imageRegistration(imgFileA,imgFileB)
+                Hid = Hid + 1 # Id of the homography in the dict
                 # Write output to file
                 cv2.imwrite(imgOutpt, warped_img )
                 run_id = run_id + 1
+                del warped_img
             #Pass done
             execution_stage_index = execution_stage_index + 1
+            Hlist = []
+            Hid = 0
             print("------------- Pass:",ex+1," Complete ----------------")
     
     print("-----------------EXIT----------------------")
