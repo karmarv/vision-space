@@ -1,0 +1,3 @@
+[submodule "image_captioning"]
+	path = image_captioning
+	url = https://github.com/vishwakarmarhl/image_captioning
