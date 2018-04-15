@@ -22,4 +22,9 @@ In case you use Cmder console
 - This stitches the images pairwise at each stage
 - Dump the results in assets/output folder
 
-2. H2
+2. H2RecogTF
+- Image recognition/classification task using Tensorflow
+-
+```
+    $ python recog.py
+```

@@ -1,0 +1,133 @@
+(base) λ python cnn_recog_mnist.py                                                                                                                  
+Extracting data/MNIST/train-images-idx3-ubyte.gz                                                                                                    
+Extracting data/MNIST/train-labels-idx1-ubyte.gz                                                                                                    
+Extracting data/MNIST/t10k-images-idx3-ubyte.gz                                                                                                     
+Extracting data/MNIST/t10k-labels-idx1-ubyte.gz                                                                                                     
+------------------ MNIST DATA -----------------------                                                                                               
+> Train-Set     :       55000                                                                                                                       
+> Test-Set      :       10000                                                                                                                       
+> Validn-Set    :       5000                                                                                                                        
+------------------ TF CNN GRAPH -----------------------                                                                                             
+------------------ TF EXEC -----------------------                                                                                                  
+2018-03-04 15:19:33.645554: I C:\tf_jenkins\home\workspace\rel-win\M\windows\PY\36\tensorflow\core\platform\cpu_feature_guard.cc:137] Your CPU suppo
+ts instructions that this TensorFlow binary was not compiled to use: AVX AVX2                                                                       
+------------------ TF TRAIN/SAVE NETWORK -----------------------                                                                                    
+Accuracy on Vald-Set: 8.7% (434 / 5000)                                                                                                             
+Accuracy on Test-Set: 8.9% (893 / 10000)                                                                                                            
+Mean: 0.00188, Stdev: 0.04399                                                                                                                       
+Iter:    100, MiniBatch Loss: 1.8, Train-Batch Accuracy:  65.6%, Validation Acc:  71.0% *                                                           
+Iter:    200, MiniBatch Loss: 0.78, Train-Batch Accuracy:  73.4%, Validation Acc:  79.2% *                                                          
+Iter:    300, MiniBatch Loss: 0.58, Train-Batch Accuracy:  79.7%, Validation Acc:  86.2% *                                                          
+Iter:    400, MiniBatch Loss: 0.54, Train-Batch Accuracy:  81.2%, Validation Acc:  88.7% *                                                          
+Iter:    500, MiniBatch Loss: 0.23, Train-Batch Accuracy:  95.3%, Validation Acc:  90.0% *                                                          
+Iter:    600, MiniBatch Loss: 0.27, Train-Batch Accuracy:  89.1%, Validation Acc:  91.5% *                                                          
+Iter:    700, MiniBatch Loss: 0.12, Train-Batch Accuracy:  98.4%, Validation Acc:  91.8% *                                                          
+Iter:    800, MiniBatch Loss: 0.2, Train-Batch Accuracy:  95.3%, Validation Acc:  92.2% *                                                           
+Iter:    900, MiniBatch Loss: 0.32, Train-Batch Accuracy:  89.1%, Validation Acc:  92.7% *                                                          
+Iter:   1000, MiniBatch Loss: 0.18, Train-Batch Accuracy:  95.3%, Validation Acc:  93.6% *                                                          
+Iter:   1100, MiniBatch Loss: 0.45, Train-Batch Accuracy:  87.5%, Validation Acc:  94.0% *                                                          
+Iter:   1200, MiniBatch Loss: 0.3, Train-Batch Accuracy:  90.6%, Validation Acc:  94.2% *                                                           
+Iter:   1300, MiniBatch Loss: 0.2, Train-Batch Accuracy:  93.8%, Validation Acc:  94.4% *                                                           
+Iter:   1400, MiniBatch Loss: 0.22, Train-Batch Accuracy:  93.8%, Validation Acc:  95.0% *                                                          
+Iter:   1500, MiniBatch Loss: 0.078, Train-Batch Accuracy:  98.4%, Validation Acc:  94.5%                                                           
+Iter:   1600, MiniBatch Loss: 0.24, Train-Batch Accuracy:  95.3%, Validation Acc:  95.2% *                                                          
+Iter:   1700, MiniBatch Loss: 0.16, Train-Batch Accuracy:  96.9%, Validation Acc:  96.0% *                                                          
+Iter:   1800, MiniBatch Loss: 0.2, Train-Batch Accuracy:  95.3%, Validation Acc:  95.6%                                                             
+Iter:   1900, MiniBatch Loss: 0.12, Train-Batch Accuracy:  98.4%, Validation Acc:  96.2% *                                                          
+Iter:   2000, MiniBatch Loss: 0.26, Train-Batch Accuracy:  92.2%, Validation Acc:  96.4% *                                                          
+Iter:   2100, MiniBatch Loss: 0.14, Train-Batch Accuracy:  95.3%, Validation Acc:  95.9%                                                            
+Iter:   2200, MiniBatch Loss: 0.093, Train-Batch Accuracy:  96.9%, Validation Acc:  96.6% *                                                         
+Iter:   2300, MiniBatch Loss: 0.13, Train-Batch Accuracy:  95.3%, Validation Acc:  96.3%                                                            
+Iter:   2400, MiniBatch Loss: 0.038, Train-Batch Accuracy: 100.0%, Validation Acc:  96.7% *                                                         
+Iter:   2500, MiniBatch Loss: 0.064, Train-Batch Accuracy:  98.4%, Validation Acc:  96.9% *                                                         
+Iter:   2600, MiniBatch Loss: 0.072, Train-Batch Accuracy:  96.9%, Validation Acc:  96.8%                                                           
+Iter:   2700, MiniBatch Loss: 0.061, Train-Batch Accuracy:  96.9%, Validation Acc:  97.2% *                                                         
+Iter:   2800, MiniBatch Loss: 0.078, Train-Batch Accuracy:  95.3%, Validation Acc:  96.9%                                                           
+Iter:   2900, MiniBatch Loss: 0.14, Train-Batch Accuracy:  95.3%, Validation Acc:  97.2% *                                                          
+Iter:   3000, MiniBatch Loss: 0.093, Train-Batch Accuracy:  96.9%, Validation Acc:  97.4% *                                                         
+Iter:   3100, MiniBatch Loss: 0.099, Train-Batch Accuracy:  96.9%, Validation Acc:  97.3%                                                           
+Iter:   3200, MiniBatch Loss: 0.13, Train-Batch Accuracy:  96.9%, Validation Acc:  97.2%                                                            
+Iter:   3300, MiniBatch Loss: 0.19, Train-Batch Accuracy:  95.3%, Validation Acc:  97.6% *                                                          
+Iter:   3400, MiniBatch Loss: 0.026, Train-Batch Accuracy: 100.0%, Validation Acc:  97.5%                                                           
+Iter:   3500, MiniBatch Loss: 0.18, Train-Batch Accuracy:  96.9%, Validation Acc:  97.6% *                                                          
+Iter:   3600, MiniBatch Loss: 0.094, Train-Batch Accuracy:  95.3%, Validation Acc:  97.7% *                                                         
+Iter:   3700, MiniBatch Loss: 0.027, Train-Batch Accuracy: 100.0%, Validation Acc:  97.6%                                                           
+Iter:   3800, MiniBatch Loss: 0.059, Train-Batch Accuracy:  98.4%, Validation Acc:  97.7% *                                                         
+Iter:   3900, MiniBatch Loss: 0.071, Train-Batch Accuracy:  96.9%, Validation Acc:  97.5%                                                           
+Iter:   4000, MiniBatch Loss: 0.051, Train-Batch Accuracy:  98.4%, Validation Acc:  97.8% *                                                         
+Iter:   4100, MiniBatch Loss: 0.13, Train-Batch Accuracy:  98.4%, Validation Acc:  97.7%                                                            
+Iter:   4200, MiniBatch Loss: 0.19, Train-Batch Accuracy:  96.9%, Validation Acc:  97.8%                                                            
+Iter:   4300, MiniBatch Loss: 0.023, Train-Batch Accuracy: 100.0%, Validation Acc:  98.2% *                                                         
+Iter:   4400, MiniBatch Loss: 0.044, Train-Batch Accuracy:  98.4%, Validation Acc:  98.0%                                                           
+Iter:   4500, MiniBatch Loss: 0.036, Train-Batch Accuracy:  98.4%, Validation Acc:  98.1%                                                           
+Iter:   4600, MiniBatch Loss: 0.11, Train-Batch Accuracy:  96.9%, Validation Acc:  97.9%                                                            
+Iter:   4700, MiniBatch Loss: 0.046, Train-Batch Accuracy:  98.4%, Validation Acc:  98.2%                                                           
+Iter:   4800, MiniBatch Loss: 0.029, Train-Batch Accuracy:  98.4%, Validation Acc:  98.1%                                                           
+Iter:   4900, MiniBatch Loss: 0.021, Train-Batch Accuracy: 100.0%, Validation Acc:  98.2% *                                                         
+Iter:   5000, MiniBatch Loss: 0.13, Train-Batch Accuracy:  95.3%, Validation Acc:  98.2% *                                                          
+Iter:   5100, MiniBatch Loss: 0.046, Train-Batch Accuracy:  98.4%, Validation Acc:  98.1%                                                           
+Iter:   5200, MiniBatch Loss: 0.022, Train-Batch Accuracy: 100.0%, Validation Acc:  98.3% *                                                         
+Iter:   5300, MiniBatch Loss: 0.053, Train-Batch Accuracy:  98.4%, Validation Acc:  98.1%                                                           
+Iter:   5400, MiniBatch Loss: 0.12, Train-Batch Accuracy:  95.3%, Validation Acc:  98.4% *                                                          
+Iter:   5500, MiniBatch Loss: 0.048, Train-Batch Accuracy:  98.4%, Validation Acc:  98.2%                                                           
+Iter:   5600, MiniBatch Loss: 0.085, Train-Batch Accuracy:  96.9%, Validation Acc:  98.2%                                                           
+Iter:   5700, MiniBatch Loss: 0.026, Train-Batch Accuracy: 100.0%, Validation Acc:  98.6% *                                                         
+Iter:   5800, MiniBatch Loss: 0.017, Train-Batch Accuracy: 100.0%, Validation Acc:  98.4%                                                           
+Iter:   5900, MiniBatch Loss: 0.025, Train-Batch Accuracy: 100.0%, Validation Acc:  98.4%                                                           
+Iter:   6000, MiniBatch Loss: 0.024, Train-Batch Accuracy: 100.0%, Validation Acc:  98.5%                                                           
+Iter:   6100, MiniBatch Loss: 0.064, Train-Batch Accuracy:  96.9%, Validation Acc:  98.6% *                                                         
+Iter:   6200, MiniBatch Loss: 0.061, Train-Batch Accuracy:  98.4%, Validation Acc:  98.6%                                                           
+Iter:   6300, MiniBatch Loss: 0.02, Train-Batch Accuracy: 100.0%, Validation Acc:  98.4%                                                            
+Iter:   6400, MiniBatch Loss: 0.053, Train-Batch Accuracy:  98.4%, Validation Acc:  98.3%                                                           
+Iter:   6500, MiniBatch Loss: 0.036, Train-Batch Accuracy:  98.4%, Validation Acc:  98.5%                                                           
+Iter:   6600, MiniBatch Loss: 0.047, Train-Batch Accuracy:  96.9%, Validation Acc:  98.6%                                                           
+Iter:   6700, MiniBatch Loss: 0.019, Train-Batch Accuracy: 100.0%, Validation Acc:  98.3%                                                           
+Iter:   6800, MiniBatch Loss: 0.004, Train-Batch Accuracy: 100.0%, Validation Acc:  98.7% *                                                         
+Iter:   6900, MiniBatch Loss: 0.015, Train-Batch Accuracy: 100.0%, Validation Acc:  98.6%                                                           
+Iter:   7000, MiniBatch Loss: 0.059, Train-Batch Accuracy:  96.9%, Validation Acc:  98.5%                                                           
+Iter:   7100, MiniBatch Loss: 0.03, Train-Batch Accuracy:  98.4%, Validation Acc:  98.4%                                                            
+Iter:   7200, MiniBatch Loss: 0.088, Train-Batch Accuracy:  98.4%, Validation Acc:  98.5%                                                           
+Iter:   7300, MiniBatch Loss: 0.043, Train-Batch Accuracy:  98.4%, Validation Acc:  98.6%                                                           
+Iter:   7400, MiniBatch Loss: 0.036, Train-Batch Accuracy:  98.4%, Validation Acc:  98.5%                                                           
+Iter:   7500, MiniBatch Loss: 0.0097, Train-Batch Accuracy: 100.0%, Validation Acc:  98.6%                                                          
+Iter:   7600, MiniBatch Loss: 0.05, Train-Batch Accuracy:  98.4%, Validation Acc:  98.6%                                                            
+Iter:   7700, MiniBatch Loss: 0.017, Train-Batch Accuracy: 100.0%, Validation Acc:  98.6%                                                           
+Iter:   7800, MiniBatch Loss: 0.022, Train-Batch Accuracy: 100.0%, Validation Acc:  98.6%                                                           
+No improvement found in a while, stopping optimization.                                                                                             
+> Time usage: 0:12:22                                                                                                                               
+------------------ TF TEST -----------------------                                                                                                  
+Accuracy on Vald-Set: 98.7% (4933 / 5000)                                                                                                           
+Accuracy on Test-Set: 98.6% (9859 / 10000)                                                                                                          
+Example errors:                                                                                                                                     
+Confusion Matrix:                                                                                                                                   
+[[ 972    0    1    0    0    1    2    1    3    0]                                                                                                
+ [   0 1124    4    1    0    0    2    1    3    0]                                                                                                
+ [   2    1 1016    1    0    0    0    6    6    0]                                                                                                
+ [   1    0    0 1001    0    1    0    4    3    0]                                                                                                
+ [   0    0    2    0  963    0    2    3    1   11]                                                                                                
+ [   2    0    0    6    0  878    2    1    1    2]                                                                                                
+ [   5    2    0    0    1    2  947    0    1    0]                                                                                                
+ [   0    1    3    1    0    0    0 1021    1    1]                                                                                                
+ [   7    0    2    2    1    1    1    2  956    2]                                                                                                
+ [   5    6    0    1    5    1    0    7    3  981]]                                                                                               
+Mean: 0.05015, Stdev: 0.09693                                                                                                                       
+------------------ TF TEST SAVED NETWORK -----------------------   
+Initial test without the trained network                                                                                 
+Accuracy on Vald-Set: 10.1% (503 / 5000)                                                                                                            
+Accuracy on Test-Set: 9.9% (992 / 10000)     
+
+Results with trained CNN
+Accuracy on Vald-Set: 98.7% (4933 / 5000)                                                                                                           
+Accuracy on Test-Set: 98.6% (9856 / 10000)                                                                                                          
+Example errors:                                                                                                                                     
+Confusion Matrix:                                                                                                                                   
+[[ 971    0    2    0    0    1    2    1    3    0]                                                                                                
+ [   0 1123    4    1    0    0    2    2    3    0]                                                                                                
+ [   2    1 1020    0    0    0    0    3    6    0]                                                                                                
+ [   1    0    2  997    0    3    0    5    2    0]                                                                                                
+ [   0    0    2    0  970    0    1    1    0    8]                                                                                                
+ [   2    0    0    8    0  877    1    1    1    2]                                                                                                
+ [   3    2    0    0    2    4  946    0    1    0]                                                                                                
+ [   0    1    5    2    0    0    0 1016    1    3]                                                                                                
+ [   6    0    3    2    2    1    1    3  952    4]                                                                                                
+ [   4    4    0    3    7    1    0    6    0  984]]                                                                                               
